@@ -7,7 +7,8 @@ const ClientModel = new mongoose.Schema({
     },
     clientPerson: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "ClientPerson"
+        ref: "ClientPerson",
+        required: true
     },
     email: {
         type: String,

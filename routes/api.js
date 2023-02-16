@@ -31,7 +31,7 @@ router.delete(`${API_CITY_URL}/delete/:id`, cityController.delete);
 * */
 const API_CITY_SIZE_URL = '/citySizes/';
 router.get(`${API_CITY_SIZE_URL}/all`, citySizeController.index);
-router.get(`${API_CITY_SIZE_URL}/:id`, citySizeController.citySize);
+router.get(`${API_CITY_SIZE_URL}/:id`, citySizeController.size);
 router.post(`${API_CITY_SIZE_URL}/add`, citySizeController.create);
 router.post(`${API_CITY_SIZE_URL}/update/:id`, citySizeController.update);
 router.delete(`${API_CITY_SIZE_URL}/delete/:id`, citySizeController.delete);
