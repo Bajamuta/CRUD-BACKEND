@@ -21,4 +21,9 @@ const ClientBusinessModel = new mongoose.Schema({
     timestamps: true
 });
 
+ClientBusinessModel.pre('find', function(next) {
+    this.populate("clients");
+    next();
+});
+
 module.exports = mongoose.model('ClientBusiness', ClientBusinessModel);

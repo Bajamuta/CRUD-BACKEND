@@ -19,4 +19,9 @@ const ClientPersonModel = new mongoose.Schema({
     timestamps: true
 });
 
+ClientPersonModel.pre('find', function(next) {
+    this.populate("clients");
+    next();
+});
+
 module.exports = mongoose.model('ClientPerson', ClientPersonModel);

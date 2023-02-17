@@ -15,9 +15,20 @@ const CityModel = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: "Country"
         }
+    ],
+    clients: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Client"
+        }
     ]
 }, {
     timestamps: true
+});
+
+CityModel.pre('find', function(next) {
+    this.populate("size").populate("countries").populate("clients");
+    next();
 });
 
 module.exports = mongoose.model('City', CityModel);

@@ -1,42 +1,40 @@
-const ActionType = require('../../models/ActionTypeModel');
+const Address = require('../../models/AddressModel');
 module.exports = {
     index: (req, res) => {
-        console.log('here', req);
         const query = req.query || {};
-        ActionType.find(query)
+        Address.find(query)
             .lean()
             .then((result) => res.json(result))
             .catch((err) => res.json({error: `An error has occurred: ${err}}`}));
     },
     create: (req, res) => {
-        console.log('here', req);
-        let newActionType = new ActionType({...req.body});
-        newActionType.save()
+        let newAddress = new Address({...req.body});
+        newAddress.save()
             .then((result) => {
                 res.json(result)
             })
             .catch((err) => res.json({error: `An error has occurred: ${err}}`}));
     },
-    type: (req, res) => {
-        ActionType.findById(req.params.id).populate('registrations')
-            .then((action) => {
-                const actionTypeDTO = {};
-                /*TODO actionTypeDTO*/
-                res.json(actionTypeDTO);
+    address: (req, res) => {
+        Address.findById(req.params.id)
+            .then((address) => {
+                const addressDTO = {};
+                /*TODO addressDTO*/
+                res.json(addressDTO);
             })
             .catch((err) => res.json({error: `An error has occurred: ${err}}`}));
     },
     update: (req, res) => {
-        ActionType.findByIdAndUpdate(req.params.id, req.body)
+        Address.findByIdAndUpdate(req.params.id, req.body)
             .lean()
             .then((result) => res.json(result))
             .catch((err) => res.json({error: `An error has occurred: ${err}}`}));
     },
     delete: (req, res) => {
-        ActionType.findByIdAndDelete(req.params.id)
+        Address.findByIdAndDelete(req.params.id)
             .lean()
             .then((result) => res.json(result))
             .catch((err) => res.json({error: `An error has occurred: ${err}}`}));
     }
-    /*TODO actions*/
+    /*TODO clients*/
 }

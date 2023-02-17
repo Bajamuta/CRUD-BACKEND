@@ -10,7 +10,14 @@ const CountryModel = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: "City"
         }
+    ],
+    clients: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Client"
+        }
     ]
+    /*TODO correct way to add if country in address inside client*/
 }, {
     timestamps: true
 });

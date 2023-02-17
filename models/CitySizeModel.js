@@ -15,4 +15,9 @@ const CitySizeModel = new mongoose.Schema({
     timestamps: true
 });
 
+CitySizeModel.pre('find', function(next) {
+    this.populate("cities");
+    next();
+});
+
 module.exports = mongoose.model('CitySize', CitySizeModel);

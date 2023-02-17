@@ -34,4 +34,9 @@ const ActionModel = new mongoose.Schema({
     timestamps: true
 });
 
+ActionModel.pre('find', function(next) {
+   this.populate("type").populate("user").populate("clients");
+   next();
+});
+
 module.exports = mongoose.model('Action', ActionModel);

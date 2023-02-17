@@ -19,24 +19,9 @@ const ClientModel = new mongoose.Schema({
         required: [true, 'Email is required']
     },
     address: {
-        city: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "City",
-            required: true
-        },
-        country: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Country",
-            required: true
-        },
-        streetWithNumbers: {
-            type: String,
-            required: true
-        },
-        postal: {
-            type: String,
-            required: false
-        },
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Address",
+        required: true
     },
     actions: [
         {
@@ -47,4 +32,10 @@ const ClientModel = new mongoose.Schema({
 }, {
     timestamps: true
 });
+
+ClientModel.pre('find', function(next) {
+    this.populate("clientBusiness").populate("clientPerson").populate("actions").populate('address');
+    next();
+});
+
 module.exports = mongoose.model('Client', ClientModel);

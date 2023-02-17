@@ -15,4 +15,9 @@ const ActionTypeModel = new mongoose.Schema({
     timestamps: true
 });
 
+ActionTypeModel.pre('find', function(next) {
+    this.populate("actions");
+    next();
+});
+
 module.exports = mongoose.model('ActionType', ActionTypeModel);
