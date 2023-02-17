@@ -18,7 +18,7 @@ module.exports = {
             .catch((err) => res.json({error: `An error has occurred: ${err}}`}));
     },
     type: (req, res) => {
-        ActionType.findById(req.params.id).populate('registrations')
+        ActionType.findById(req.params.id)
             .then((action) => {
                 const actionTypeDTO = {};
                 /*TODO actionTypeDTO*/

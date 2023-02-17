@@ -1,4 +1,6 @@
 const User = require('../../models/UserModel');
+const Action = require('../../models/ActionModel');
+const ActionType = require('../../models/ActionTypeModel');
 module.exports = {
     index: (req, res) => {
         const query = req.query || {};
@@ -16,7 +18,7 @@ module.exports = {
             .catch((err) => res.json({error: `An error has occurred: ${err}}`}));
     },
     user: (req, res) => {
-        User.findById(req.params.id).populate('registrations')
+        User.findById(req.params.id)
             .then((user) => {
                 const userDTO = {
                     name: user.name,
@@ -30,6 +32,7 @@ module.exports = {
                     updatedAt: user.updatedAt
                 }
                 /*TODO userDTO*/
+                /*TODO awatary jako zdjęcia na serwerze?*/
                 res.json(userDTO);
             })
             .catch((err) => res.json({error: `An error has occurred: ${err}}`}));
@@ -45,6 +48,23 @@ module.exports = {
             .lean()
             .then((result) => res.json(result))
             .catch((err) => res.json({error: `An error has occurred: ${err}}`}));
+    },
+    createAction: (req, res) => {
+        let user;
+        let actionType;
+        User.findById(req.params.id)
+            .then(
+                (userResult) => {
+                    user = userResult;
+                    return ActionType.findById(req.body.actionTypeId);
+                }
+            )
+            .then(
+                (actionTypeResult) => {
+                    actionType = actionTypeResult;
+                    let newAction = new Action({user: user._id, name: req.body.description, type: actionTypeResult._id});
+                }
+            )
     }
     /*TODO actions*/
 }

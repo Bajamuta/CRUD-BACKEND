@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const ClientModel = new mongoose.Schema({
+    /*TODO flaga czy klient biznesowy*/
     clientBusiness: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "ClientBusiness"

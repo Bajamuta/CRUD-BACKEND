@@ -16,7 +16,7 @@ module.exports = {
             .catch((err) => res.json({error: `An error has occurred: ${err}}`}));
     },
    size: (req, res) => {
-        CitySize.findById(req.params.id).populate('registrations')
+        CitySize.findById(req.params.id)
             .then((size) => {
                 const citySizeDTO = {};
                 /*TODO ctySizeDTO*/

@@ -16,7 +16,7 @@ module.exports = {
             .catch((err) => res.json({error: `An error has occurred: ${err}}`}));
     },
     city: (req, res) => {
-        City.findById(req.params.id).populate('registrations')
+        City.findById(req.params.id)
             .then((action) => {
                 const cityDTO = {};
                 /*TODO ctyDTO*/
