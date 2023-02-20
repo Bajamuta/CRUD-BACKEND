@@ -21,17 +21,16 @@ module.exports = {
         User.findById(req.params.id)
             .then((user) => {
                 const userDTO = {
-                    name: user.name,
+                    firstname: user.firstname,
                     surname: user.surname,
                     username: user.username,
                     email: user.email,
                     _id: user._id,
-                    registrations: user.registrations,
+                    actions: user.actions,
                     avatarUrl: user.avatarUrl,
                     createdAt: user.createdAt,
                     updatedAt: user.updatedAt
                 }
-                /*TODO userDTO*/
                 /*TODO awatary jako zdjęcia na serwerze?*/
                 res.json(userDTO);
             })
@@ -63,6 +62,14 @@ module.exports = {
                 (actionTypeResult) => {
                     actionType = actionTypeResult;
                     let newAction = new Action({user: user._id, name: req.body.description, type: actionTypeResult._id});
+                    return newAction.save();
+                }
+            )
+            .then(
+                (actionResult) => {
+                    user.actions.push(actionResult._id);
+                    user.save();
+                    return res.json({result: 'Action created'})
                 }
             )
     }

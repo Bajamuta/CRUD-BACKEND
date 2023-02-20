@@ -98,9 +98,9 @@ router.post(`${API_ACTION_URL}/add`, actionController.create);
 router.post(`${API_ACTION_URL}/update/:id`, actionController.update);
 router.delete(`${API_ACTION_URL}/delete/:id`, actionController.delete);
 /*add new clients to action*/
-router.post(`${API_ACTION_URL}/update/:id/clients/add`, actionController.addClients);
+router.post(`${API_ACTION_URL}/update/:id/clients/add`, actionController.addClient);
 /*delete clients from action*/
-router.post(`${API_ACTION_URL}/update/:id/clients/delete`, actionController.deleteClients);
+router.post(`${API_ACTION_URL}/update/:id/clients/delete`, actionController.deleteClient);
 
 /*
 * ACTIONS TYPES

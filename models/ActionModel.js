@@ -19,12 +19,10 @@ const ActionModel = new mongoose.Schema({
         type: String,
         required: true
     },
-    clients: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Client"
-        }
-    ],
+    client: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Client"
+    },
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",

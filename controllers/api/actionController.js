@@ -37,50 +37,43 @@ module.exports = {
             .then((result) => res.json(result))
             .catch((err) => res.json({error: `An error has occurred: ${err}}`}));
     },
-    addClients: (req, res) => {
-        /*TODO is it the correct way to add clients to action?*/
-        Action.findById(req.params.id)
+    addClient: (req, res) => {
+        let action;
+        Action.findById(req.body.actionId)
             .then(
                 (actionResult) => {
-                    actionResult.clients.push(req.body.clientsId);
-                    return actionResult.save();
+                    action = actionResult;
+                    return Client.findById(req.body.clientId);
                 }
             )
             .then(
-                (actionResult) => {
-                    req.body.clientsId.forEach(
-                        (id) => {
-                            Client.findById(id)
-                                .then(
-                                    (clientResult) => {
-                                        clientResult.actions.push(actionResult._id);
-                                        clientResult.save();
-                                    }
-                                )
-                                .catch((err) => res.json({error: `An error has occurred: ${err}}`}));
-                        }
-                    );
+                (clientResult) => {
+                    action.client = clientResult._id;
+                    action.save();
+                    clientResult.actions.push(action._id);
                     return res.json({result: 'Clients have been added'});
                 }
             )
             .catch((err) => res.json({error: `An error has occurred: ${err}}`}));
     },
-    deleteClients: (req, res) => {
-        Action.findById(req.params.id)
+    deleteClient: (req, res) => {
+        let action;
+        Action.findById(req.body.actionId)
             .then(
                 (actionResult) => {
-                    req.body.clientsId.forEach(
-                        (id) => {
-                            actionResult.clients.pull({_id: id});
-                            actionResult.save();
-                            /*TODO usunąć przez wyfiltrowanie*/
-                        }
-                    );
-                    /*TODO how to correctly remove many objects?*/
+                    action = actionResult;
+                    return Client.findById(req.body.clientId);
+                }
+            )
+            .then(
+                (clientResult) => {
+                    clientResult.actions.pull({_id: req.body.actionId});
+                    clientResult.save();
+                    action.client = null;
+                    action.save();
                     return res.json({result: 'Clients have been removed'});
                 }
             )
             .catch((err) => res.json({error: `An error has occurred: ${err}}`}));
     }
-    /*TODO clients & user*/
 }

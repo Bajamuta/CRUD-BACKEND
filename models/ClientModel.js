@@ -11,6 +11,10 @@ const ClientModel = new mongoose.Schema({
         ref: "ClientPerson",
         required: true
     },
+    business: {
+        type: Boolean,
+        required: true
+    },
     email: {
         type: String,
         required: [true, 'Email is required']
