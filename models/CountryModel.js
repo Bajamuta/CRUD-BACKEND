@@ -11,15 +11,19 @@ const CountryModel = new mongoose.Schema({
             ref: "City"
         }
     ],
-    clients: [
+    addresses: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Client"
+            ref: "Address"
         }
     ]
-    /*TODO correct way to add if country in address inside client*/
 }, {
     timestamps: true
+});
+
+CountryModel.pre('find', function (next) {
+   this.populate('cities').populate('addresses');
+   next();
 });
 
 module.exports = mongoose.model('Country', CountryModel);

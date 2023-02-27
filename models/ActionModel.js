@@ -32,8 +32,6 @@ const ActionModel = new mongoose.Schema({
     timestamps: true
 });
 
-/*TODO AKCJA MA JEDNEGO KLIENTA!!*/
-
 ActionModel.pre('find', function(next) {
    this.populate("type").populate("user").populate("clients");
    next();
