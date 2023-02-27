@@ -22,7 +22,6 @@ const AddressModel = new mongoose.Schema({
 }, {
     timestamps: true
 });
-/*TODO adres w kliencie bezpośrednio*/
 
 AddressModel.pre('find', function(next) {
     this.populate("city").populate("country");
