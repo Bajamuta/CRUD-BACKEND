@@ -26,6 +26,8 @@ router.get(`${API_CITY_URL}/:id`, cityController.city);
 router.post(`${API_CITY_URL}/add`, cityController.create);
 router.post(`${API_CITY_URL}/update/:id`, cityController.update);
 router.delete(`${API_CITY_URL}/delete/:id`, cityController.delete);
+/*ADD COUNTRY*/
+router.post(`${API_CITY_URL}/country/add/:id`, cityController.addCountry);
 
 /*
 * CITY SIZES
