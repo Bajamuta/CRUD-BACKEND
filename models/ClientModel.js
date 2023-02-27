@@ -20,12 +20,28 @@ const ClientModel = new mongoose.Schema({
     },
     phone: {
         type: String,
-        required: [true, 'Email is required']
+        required: [true, 'Phone is required']
     },
-    address: {
+    /*address: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Address",
         required: true
+    },*/
+    city: {
+        type: String,
+        required: [true, 'City is required']
+    },
+    country: {
+        type: String,
+        required: [true, 'Country is required']
+    },
+    streetWithNumbers: {
+        type: String,
+        required: true
+    },
+    postal: {
+        type: String,
+        required: false
     },
     actions: [
         {
@@ -38,7 +54,8 @@ const ClientModel = new mongoose.Schema({
 });
 
 ClientModel.pre('find', function(next) {
-    this.populate("clientBusiness").populate("clientPerson").populate("actions").populate('address');
+    // this.populate("clientBusiness").populate("clientPerson").populate("actions").populate('address');
+    this.populate("clientBusiness").populate("clientPerson").populate("actions");
     next();
 });
 
