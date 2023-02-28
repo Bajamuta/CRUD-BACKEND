@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const ClientModel = new mongoose.Schema({
-    clientBusiness: {
+    /*clientBusiness: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "ClientBusiness"
     },
@@ -9,6 +9,20 @@ const ClientModel = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "ClientPerson",
         required: true
+    },*/
+    firstname: {
+        type: String,
+        required: true
+    },
+    surname: {
+        type: String,
+        required: true
+    },
+    nip: {
+        type: String
+    },
+    companyName: {
+      type: String
     },
     business: {
         type: Boolean,
