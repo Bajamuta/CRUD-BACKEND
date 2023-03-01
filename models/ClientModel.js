@@ -69,7 +69,7 @@ const ClientModel = new mongoose.Schema({
 
 ClientModel.pre('find', function(next) {
     // this.populate("clientBusiness").populate("clientPerson").populate("actions").populate('address');
-    this.populate("clientBusiness").populate("clientPerson").populate("actions");
+    this.populate("actions");
     next();
 });
 
