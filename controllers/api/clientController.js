@@ -18,9 +18,11 @@ module.exports = {
     client: (req, res) => {
         Client.findById(req.params.id)
             .then((client) => {
-                const clientDTO = {};
+                const clientDTO = {
+
+                };
                 /*TODO clientDTO*/
-                res.json(clientDTO);
+                res.json(client);
             })
             .catch((err) => res.json({error: `An error has occurred: ${err}}`}));
     },
