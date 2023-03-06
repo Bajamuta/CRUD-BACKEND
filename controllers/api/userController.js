@@ -47,31 +47,6 @@ module.exports = {
             .lean()
             .then((result) => res.json(result))
             .catch((err) => res.json({error: `An error has occurred: ${err}}`}));
-    },
-    createAction: (req, res) => {
-        let user;
-        let actionType;
-        User.findById(req.params.id)
-            .then(
-                (userResult) => {
-                    user = userResult;
-                    return ActionType.findById(req.body.actionTypeId);
-                }
-            )
-            .then(
-                (actionTypeResult) => {
-                    actionType = actionTypeResult;
-                    let newAction = new Action({user: user._id, name: req.body.description, type: actionTypeResult._id});
-                    return newAction.save();
-                }
-            )
-            .then(
-                (actionResult) => {
-                    user.actions.push(actionResult._id);
-                    user.save();
-                    return res.json({result: 'Action created'})
-                }
-            )
     }
     /*TODO actions*/
 }

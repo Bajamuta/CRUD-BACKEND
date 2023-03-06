@@ -6,7 +6,7 @@ const ActionModel = new mongoose.Schema({
         required: true,
         default: new Date()
     },
-    name: {
+    subject: {
         type: String,
         required: true
     },
