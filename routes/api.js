@@ -126,10 +126,4 @@ router.delete(`${API_USER_URL}/delete/:id`, userController.delete);
 /*create action for specific user*/
 router.get(`${API_USER_URL}/:id/action/add`, userController.user);
 
-/*
-* AUTH
-* */
-router.post('/auth/login', authController.getToken);
-
-
 module.exports = router;

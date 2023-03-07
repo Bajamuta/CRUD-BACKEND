@@ -11,6 +11,10 @@ module.exports = {
                             if (token) {
                                 res.json({jwt_token: token, username: user.username, id: user._id, ttl: new Date()});
                             }
+                            else
+                            {
+                                res.json({error: `Wrong token`});
+                            }
                         }
                         else
                         {

@@ -2,6 +2,7 @@ const Action = require('../../models/ActionModel');
 const Client = require('../../models/ClientModel');
 const User = require("../../models/UserModel");
 const ActionType = require("../../models/ActionTypeModel");
+const jwt = require('jsonwebtoken');
 module.exports = {
     index: (req, res) => {
         const query = req.query || {};
@@ -14,6 +15,7 @@ module.exports = {
         let user;
         let actionType;
         /*TODO rozczytać z tokenu*/
+        console.log('here', req.body.token, jwt.decode(req.body.token));
         User.findById(req.body.userId)
             .then(
                 (userResult) => {
