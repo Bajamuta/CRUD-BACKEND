@@ -7,8 +7,14 @@ module.exports = {
     index: (req, res) => {
         const query = req.query || {};
         Action.find(query)
+            .populate('client')
+            .populate('user')
+            .populate('type')
             .lean()
-            .then((result) => res.json(result))
+            .then((result) => {
+                /*TODO czy da się populte w tabelii? (jakoś prościej)*/
+                return res.json(result);
+            })
             .catch((err) => res.json({error: `An error has occurred: ${err}}`}));
     },
     create: (req, res) => {
@@ -62,9 +68,9 @@ module.exports = {
     action: (req, res) => {
         Action.findById(req.params.id)
             .then((action) => {
-                const actionDTO = {};
+                /*const actionDTO = {};*/
                 /*TODO actionDTO*/
-                res.json(actionDTO);
+                res.json(action);
             })
             .catch((err) => res.json({error: `An error has occurred: ${err}}`}));
     },
@@ -75,9 +81,29 @@ module.exports = {
             .catch((err) => res.json({error: `An error has occurred: ${err}}`}));
     },
     delete: (req, res) => {
+        /*TODO token z nagłówka req.header("Authorization"); */
         Action.findByIdAndDelete(req.params.id)
-            .lean()
-            .then((result) => res.json(result))
+            .then((actionResult) => {
+                const userId = jwt.decode(req.body.token)._id;
+                return User.findById(userId);
+            })
+            .then(
+                (userResult) => {
+                    userResult.actions.pull({_id: req.params.id});
+                    userResult.save();
+                    return Client.findById(req.body.clientId);
+                }
+            )
+            .then((clientResult) => {
+                clientResult.actions.pull({_id: req.params.id});
+                clientResult.save();
+                return ActionType.findById(req.body.typeId);
+            })
+            .then((typeResult) => {
+                typeResult.actions.pull({_id: req.params.id});
+                typeResult.save();
+                return res.json({result: 'Action removed successfully'});
+            })
             .catch((err) => res.json({error: `An error has occurred: ${err}}`}));
     },
     addClient: (req, res) => {

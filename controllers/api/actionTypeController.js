@@ -1,7 +1,6 @@
 const ActionType = require('../../models/ActionTypeModel');
 module.exports = {
     index: (req, res) => {
-        console.log('here', req);
         const query = req.query || {};
         ActionType.find(query)
             .lean()
@@ -9,7 +8,6 @@ module.exports = {
             .catch((err) => res.json({error: `An error has occurred: ${err}}`}));
     },
     create: (req, res) => {
-        console.log('here', req);
         let newActionType = new ActionType({...req.body});
         newActionType.save()
             .then((result) => {
