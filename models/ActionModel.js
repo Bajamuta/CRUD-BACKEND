@@ -33,7 +33,7 @@ const ActionModel = new mongoose.Schema({
 });
 
 ActionModel.pre('find', function(next) {
-   this.populate("type").populate("user").populate("clients");
+   this.populate("type").populate("user").populate("client");
    next();
 });
 

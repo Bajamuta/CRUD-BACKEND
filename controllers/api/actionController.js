@@ -12,15 +12,15 @@ module.exports = {
             .catch((err) => res.json({error: `An error has occurred: ${err}}`}));
     },
     create: (req, res) => {
+        const userId = jwt.decode(req.body.token)._id;
         let user;
         let actionType;
-        /*TODO rozczytać z tokenu*/
-        console.log('here', req.body.token, jwt.decode(req.body.token));
-        User.findById(req.body.userId)
+        let client;
+        User.findById(userId)
             .then(
                 (userResult) => {
                     user = userResult;
-                    return ActionType.findById(req.body.actionTypeId);
+                    return ActionType.findById(req.body.typeId);
                 }
             )
             .then(
@@ -31,6 +31,7 @@ module.exports = {
             )
             .then(
                 (clientResult) => {
+                    client = clientResult;
                     let newAction = new Action(
                         {user: user._id,
                             subject: req.body.subject,
@@ -42,6 +43,10 @@ module.exports = {
             )
             .then(
                 (actionResult) => {
+                    client.actions.push(actionResult._id);
+                    client.save();
+                    actionType.actions.push(actionResult._id);
+                    actionType.save();
                     user.actions.push(actionResult._id);
                     user.save();
                     return res.json({result: 'Action created'})
