@@ -17,6 +17,12 @@ module.exports = {
     },
     client: (req, res) => {
         Client.findById(req.params.id)
+            .populate({
+                path : 'actions',
+                populate : {
+                    path : 'type'
+                }
+            })
             .then((client) => {
                 const clientDTO = {
 
