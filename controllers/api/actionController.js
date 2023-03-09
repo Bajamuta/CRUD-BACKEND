@@ -81,8 +81,17 @@ module.exports = {
             .catch((err) => res.json({error: `An error has occurred: ${err}}`}));
     },
     delete: (req, res) => {
+        let clientId;
+        let actionTypeId;
+        Action.findById(req.params.id)
+            .populate("client")
+            .populate("type")
+            .then((actionResult) => {
+                clientId = actionResult.client._id;
+                actionTypeId = actionResult.type._id;
+                return Action.findByIdAndDelete(req.params.id);
+            })
         /*TODO token z nagłówka req.header("Authorization"); */
-        Action.findByIdAndDelete(req.params.id)
             .then((actionResult) => {
                 const userId = jwt.decode(req.body.token)._id;
                 return User.findById(userId);
@@ -91,13 +100,13 @@ module.exports = {
                 (userResult) => {
                     userResult.actions.pull({_id: req.params.id});
                     userResult.save();
-                    return Client.findById(req.body.clientId);
+                    return Client.findById(clientId);
                 }
             )
             .then((clientResult) => {
                 clientResult.actions.pull({_id: req.params.id});
                 clientResult.save();
-                return ActionType.findById(req.body.typeId);
+                return ActionType.findById(actionTypeId);
             })
             .then((typeResult) => {
                 typeResult.actions.pull({_id: req.params.id});
