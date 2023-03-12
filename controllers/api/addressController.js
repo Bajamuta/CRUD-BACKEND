@@ -18,7 +18,7 @@ module.exports = {
     address: (req, res) => {
         Address.findById(req.params.id)
             .then((address) => {
-                const addressDTO = {};
+                const addressDTO = address;
                 /*TODO addressDTO*/
                 res.json(addressDTO);
             })

@@ -18,7 +18,7 @@ module.exports = {
     type: (req, res) => {
         ActionType.findById(req.params.id)
             .then((action) => {
-                const actionTypeDTO = {};
+                const actionTypeDTO = action;
                 /*TODO actionTypeDTO*/
                 res.json(actionTypeDTO);
             })

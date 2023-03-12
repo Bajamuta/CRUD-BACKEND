@@ -18,8 +18,8 @@ module.exports = {
     },
     city: (req, res) => {
         City.findById(req.params.id)
-            .then((action) => {
-                const cityDTO = {};
+            .then((city) => {
+                const cityDTO = city;
                 /*TODO ctyDTO*/
                 res.json(cityDTO);
             })

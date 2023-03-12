@@ -24,11 +24,9 @@ module.exports = {
                 }
             })
             .then((client) => {
-                const clientDTO = {
-
-                };
+                const clientDTO = client;
                 /*TODO clientDTO*/
-                res.json(client);
+                res.json(clientDTO);
             })
             .catch((err) => res.json({error: `An error has occurred: ${err}}`}));
     },

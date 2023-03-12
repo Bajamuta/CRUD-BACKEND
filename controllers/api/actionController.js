@@ -17,6 +17,22 @@ module.exports = {
             })
             .catch((err) => res.json({error: `An error has occurred: ${err}}`}));
     },
+    actionsUser: (req, res) => {
+        User.findById(req.params.id)
+            .then(
+                (userResult) => {
+                    return Action.find({user: userResult._id})
+                        .populate('client')
+                        .populate('user')
+                        .populate('type')
+                        .lean();
+                }
+            )
+            .then((result) => {
+                return res.json(result);
+            })
+            .catch((err) => res.json({error: `An error has occurred: ${err}}`}));
+    },
     create: (req, res) => {
         const userId = jwt.decode(req.body.token)._id;
         let user;

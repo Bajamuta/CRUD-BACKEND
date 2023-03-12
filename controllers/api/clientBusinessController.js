@@ -18,7 +18,7 @@ module.exports = {
     client: (req, res) => {
         ClientBusiness.findById(req.params.id)
             .then((client) => {
-                const clientBusinessDTO = {};
+                const clientBusinessDTO = client;
                 /*TODO clientBusinessDTO*/
                 res.json(clientBusinessDTO);
             })

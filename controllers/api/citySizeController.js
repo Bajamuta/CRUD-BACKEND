@@ -18,7 +18,7 @@ module.exports = {
    size: (req, res) => {
         CitySize.findById(req.params.id)
             .then((size) => {
-                const citySizeDTO = {};
+                const citySizeDTO = size;
                 /*TODO ctySizeDTO*/
                 res.json(citySizeDTO);
             })

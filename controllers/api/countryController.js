@@ -18,7 +18,7 @@ module.exports = {
     country: (req, res) => {
         Country.findById(req.params.id)
             .then((country) => {
-                const countryDTO = {};
+                const countryDTO = country;
                 /*TODO countryDTO*/
                 res.json(countryDTO);
             })

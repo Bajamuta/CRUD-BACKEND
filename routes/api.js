@@ -95,6 +95,7 @@ router.delete(`${API_CLIENT_PERSON_URL}/delete/:id`, clientPersonController.dele
 * */
 const API_ACTION_URL = '/actions';
 router.get(`${API_ACTION_URL}/all`, actionController.index);
+router.get(`${API_ACTION_URL}/user/:id`, actionController.actionsUser);
 router.get(`${API_ACTION_URL}/:id`, actionController.action);
 router.post(`${API_ACTION_URL}/add`, actionController.create);
 router.post(`${API_ACTION_URL}/update/:id`, actionController.update);
