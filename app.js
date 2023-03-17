@@ -8,13 +8,18 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const apiRouter = require('./routes/api');
 const mongoose = require("mongoose");
+const { MongoClient, ServerApiVersion } = require('mongodb');
 
 const app = express();
-
+const user = 'gadygumbo0a';
+const pass = 'AQcRjNEGjxBBbumU';
 mongoose.set('strictQuery', true);
 
 // Define the database URL to connect to.
-const mongoDB = "mongodb://localhost:27017/CRUD";
+// const mongoDB = "mongodb://localhost:27017/CRUD";
+const mongoDB = `mongodb+srv://${user}:${pass}@akademia108.x7mhb6o.mongodb.net/?retryWrites=true&w=majority`;
+const client = new MongoClient(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -51,7 +56,8 @@ app.use(function(err, req, res, next) {
 main().catch(err => console.log(err));
 
 async function main() {
-  await mongoose.connect(mongoDB);
+  // await mongoose.connect(mongoDB);
+  await client.connect();
 }
 
 app.listen(8080, () => console.log('Server Node.Js is working'));
