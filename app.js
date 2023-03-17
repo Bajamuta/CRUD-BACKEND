@@ -1,3 +1,4 @@
+require('dotenv').config()
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -8,18 +9,12 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const apiRouter = require('./routes/api');
 const mongoose = require("mongoose");
-const { MongoClient, ServerApiVersion } = require('mongodb');
-
 const app = express();
-const user = 'gadygumbo0a';
-const user2 = 'user';
-const pass = 'AQcRjNEGjxBBbumU';
-/*TODO jak ukryć dane logowania? (env, doinstalować)*/
 mongoose.set('strictQuery', true);
 
 // Define the database URL to connect to.
 // const mongoDB = "mongodb://localhost:27017/CRUD";
-const mongoDB = `mongodb+srv://${user2}:${pass}@akademia108.x7mhb6o.mongodb.net/test`;
+const mongoDB = `mongodb+srv://${process.env.SECRET_USER}:${process.env.SECRET_KEY}@akademia108.x7mhb6o.mongodb.net/test`;
 
 
 // view engine setup
